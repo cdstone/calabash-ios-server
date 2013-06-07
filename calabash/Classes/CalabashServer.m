@@ -23,6 +23,7 @@
 #import "LPConditionRoute.h"
 #import "LPUIARoute.h"
 #import "LPKeyboardRoute.h"
+#import "LPPhotoRoute.h" // IPL
 #import <dlfcn.h>
 
 @interface CalabashServer()
@@ -66,7 +67,7 @@
         LPAsyncPlaybackRoute *apr =[LPAsyncPlaybackRoute new];
         [LPRouter addRoute:apr forPath:@"play"];
         [apr release];
-
+        
         LPUserPrefRoute *bgr =[LPUserPrefRoute new];
         [LPRouter addRoute:bgr forPath:@"userprefs"];
         [bgr release];
@@ -99,6 +100,12 @@
         [LPRouter addRoute:cond forPath:@"condition"];
         [cond release];
 
+        // IPL
+        LPPhotoRoute* photo = [LPPhotoRoute new];
+        [LPRouter addRoute:photo forPath:@"photo"];
+        [photo release];
+        // IPL
+        
         LPKeyboardRoute* keyboard = [LPKeyboardRoute new];
         [LPRouter addRoute:keyboard forPath:@"keyboard"];
         [keyboard release];

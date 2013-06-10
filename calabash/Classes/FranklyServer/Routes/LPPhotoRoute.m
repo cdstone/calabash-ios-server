@@ -20,7 +20,6 @@
 - (NSDictionary *)JSONResponseForMethod:(NSString *)method URI:(NSString *)path data:(NSDictionary*)data {
     // Receive the photo data
     NSMutableString *encodedData = [data objectForKey:@"phto"];
-    NSString *album = [data objectForKey:@"album"];
     
     // Decode the base64 encoded data
     [Base64 initialize];
@@ -39,6 +38,14 @@
     }
     
     // KEXIN'S CODE HERE //
+    NSString *album = [data objectForKey:@"album"];
+    if(album != nil){
+        // add to specific album
+        
+    }
+    else{
+        // add to default album
+    }
     
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     

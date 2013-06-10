@@ -22,6 +22,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		26CED3911766324C00744BCD /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26CED3901766324C00744BCD /* AssetsLibrary.framework */; };
 		692D77A01657010000DE3E53 /* LPExitRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 692D779E1657010000DE3E53 /* LPExitRoute.h */; };
 		692D77A11657010000DE3E53 /* LPExitRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 692D779F1657010000DE3E53 /* LPExitRoute.m */; };
 		70964E081762A5B500D3B1F7 /* Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 70964E061762A5B500D3B1F7 /* Base64.h */; };
@@ -127,6 +128,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		26CED3901766324C00744BCD /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		692D779E1657010000DE3E53 /* LPExitRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPExitRoute.h; sourceTree = "<group>"; };
 		692D779F1657010000DE3E53 /* LPExitRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPExitRoute.m; sourceTree = "<group>"; };
 		70964E061762A5B500D3B1F7 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26CED3911766324C00744BCD /* AssetsLibrary.framework in Frameworks */,
 				B17E757B15D434D00066550B /* CFNetwork.framework in Frameworks */,
 				B17E756E15D433A40066550B /* Foundation.framework in Frameworks */,
 			);
@@ -315,6 +318,7 @@
 		B121E78614B6D9FB0034C6A9 = {
 			isa = PBXGroup;
 			children = (
+				26CED3901766324C00744BCD /* AssetsLibrary.framework */,
 				B16C307C15191A8C00DAA3FA /* calabash-js */,
 				B121E79914B6D9FB0034C6A9 /* calabash */,
 				B121E79614B6D9FB0034C6A9 /* Frameworks */,

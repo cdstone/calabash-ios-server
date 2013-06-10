@@ -40,10 +40,17 @@
     
     // KEXIN'S CODE HERE //
     
-    return [NSDictionary dictionaryWithObjectsAndKeys:
-            @"image received", @"results",
-            @"SUCCESS",@"outcome",
-            nil];
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    
+    [library addAssetsGroupAlbumWithName:album
+                             resultBlock:^(ALAssetsGroup *group) {
+                                 NSLog(@"added album:%@", album);
+                             }
+     
+                            failureBlock:^(NSError *error) {
+                                NSLog(@"error adding album");
+                            }
+     ];
 
 }
 

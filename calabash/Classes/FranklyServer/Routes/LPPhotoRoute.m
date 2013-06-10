@@ -38,7 +38,7 @@
                 @"wrong size for decode; base64 string must be divisible by 4", @"details", nil];
     }
     
-    // KEXIN'S CODE HERE
+    // KEXIN'S CODE HERE //
     
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"image received", @"results",

@@ -24,6 +24,8 @@
 /* Begin PBXBuildFile section */
 		692D77A01657010000DE3E53 /* LPExitRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 692D779E1657010000DE3E53 /* LPExitRoute.h */; };
 		692D77A11657010000DE3E53 /* LPExitRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 692D779F1657010000DE3E53 /* LPExitRoute.m */; };
+		70964E081762A5B500D3B1F7 /* Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 70964E061762A5B500D3B1F7 /* Base64.h */; };
+		70964E091762A5B500D3B1F7 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 70964E071762A5B500D3B1F7 /* Base64.m */; };
 		70E97D3F17611EDD00A1059C /* LPPhotoRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 70E97D3D17611EDC00A1059C /* LPPhotoRoute.h */; };
 		70E97D4017611EDD00A1059C /* LPPhotoRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E97D3E17611EDD00A1059C /* LPPhotoRoute.m */; };
 		B12179A8165D613100B6DA43 /* LPScreenshotRoute2.h in Headers */ = {isa = PBXBuildFile; fileRef = B12179A6165D613100B6DA43 /* LPScreenshotRoute2.h */; };
@@ -127,6 +129,8 @@
 /* Begin PBXFileReference section */
 		692D779E1657010000DE3E53 /* LPExitRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPExitRoute.h; sourceTree = "<group>"; };
 		692D779F1657010000DE3E53 /* LPExitRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPExitRoute.m; sourceTree = "<group>"; };
+		70964E061762A5B500D3B1F7 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Base64.h; path = ../../../../../Desktop/base64/Base64.h; sourceTree = "<group>"; };
+		70964E071762A5B500D3B1F7 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Base64.m; path = ../../../../../Desktop/base64/Base64.m; sourceTree = "<group>"; };
 		70E97D3D17611EDC00A1059C /* LPPhotoRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPPhotoRoute.h; sourceTree = "<group>"; };
 		70E97D3E17611EDD00A1059C /* LPPhotoRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPPhotoRoute.m; sourceTree = "<group>"; };
 		B111321514D5837900982BBC /* LPAsyncPlaybackRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPAsyncPlaybackRoute.h; sourceTree = "<group>"; };
@@ -598,6 +602,8 @@
 		B184FE0B14B6DB2B002A744C /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				70964E061762A5B500D3B1F7 /* Base64.h */,
+				70964E071762A5B500D3B1F7 /* Base64.m */,
 				B1DDE6D115C0701D00BBE2BE /* UIAutomation.h */,
 				B184FE0C14B6DB2B002A744C /* LPJSONUtils.h */,
 				B184FE0D14B6DB2B002A744C /* LPJSONUtils.m */,
@@ -657,6 +663,7 @@
 				B19440441725C70A00EE1B25 /* LPFlashOperation.h in Headers */,
 				F5AE0BC6174F58A5006E4050 /* LPScrollToRowWithMarkOperation.h in Headers */,
 				70E97D3F17611EDD00A1059C /* LPPhotoRoute.h in Headers */,
+				70964E081762A5B500D3B1F7 /* Base64.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -810,6 +817,7 @@
 				B19440451725C70A00EE1B25 /* LPFlashOperation.m in Sources */,
 				F5AE0BC7174F58A5006E4050 /* LPScrollToRowWithMarkOperation.m in Sources */,
 				70E97D4017611EDD00A1059C /* LPPhotoRoute.m in Sources */,
+				70964E091762A5B500D3B1F7 /* Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

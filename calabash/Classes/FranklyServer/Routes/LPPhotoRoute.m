@@ -9,6 +9,7 @@
 #import "LPPhotoRoute.h"
 #import "LPHTTPDataResponse.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Base64.h"
 
 @implementation LPPhotoRoute
 
@@ -24,12 +25,23 @@
 
 -(NSData*)addPhoto
 {
-    NSData *imageData = [self.data objectForKey:@"phto"];
+    // Receive the photo data
+    NSMutableString *data = [self.data objectForKey:@"phto"];
+    // strip new line characters for decoding
+    for (NSInteger i = 0; i < data.length; i++) {
+        if ([data characterAtIndex:i] == '\n'){
+            NSRange range = NSMakeRange(i, 1);
+            [data deleteCharactersInRange:range];
+            }
+    }
     
-    NSLog(@"%@", imageData);
+    // Decode the base64 encoded data
+    [Base64 initialize];
+    NSData * imageData = [Base64 decode:data];
     
-    UIImage *image = [UIImage imageWithData: imageData];
-    
+    // create image
+    UIImage *image = [[UIImage alloc]initWithData:imageData];
+        
     // KEXIN'S CODE HERE
     
     return UIImagePNGRepresentation(image);

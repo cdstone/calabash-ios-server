@@ -47,8 +47,7 @@
     }
     if(album != nil){
         // create album
-        /*
-         TODO: FIX THE FRAMEWORK???
+        //TODO: FIX THE FRAMEWORK???
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library addAssetsGroupAlbumWithName:album
                                  resultBlock:^(ALAssetsGroup *group) {
@@ -62,9 +61,9 @@
         if(image != nil){
          // TODO: add to specific album
         }
-         */
     }
     else {
+        // save to default photos
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     }
     

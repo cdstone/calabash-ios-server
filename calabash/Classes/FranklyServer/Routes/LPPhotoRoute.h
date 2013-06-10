@@ -7,11 +7,7 @@
 //
 #import <Foundation/Foundation.h>
 #import "LPRoute.h"
-#import "LPHTTPResponse.h"
-#import "LPGenericAsyncRoute.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-
-
 
 @interface LPPhotoRoute : NSObject<LPRoute>
 

@@ -17,34 +17,34 @@
     return [method isEqualToString:@"GET"] || [method isEqualToString:@"POST"];
 }
 
-- (NSObject<LPHTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)path {
-    LPHTTPDataResponse* drsp = [[LPHTTPDataResponse alloc] initWithData:[self addPhoto]];
-    return [drsp autorelease];
-}
-
-
--(NSData*)addPhoto
-{
+- (NSDictionary *)JSONResponseForMethod:(NSString *)method URI:(NSString *)path data:(NSDictionary*)data {
     // Receive the photo data
-    NSMutableString *data = [self.data objectForKey:@"phto"];
-    // strip new line characters for decoding
-    for (NSInteger i = 0; i < data.length; i++) {
-        if ([data characterAtIndex:i] == '\n'){
-            NSRange range = NSMakeRange(i, 1);
-            [data deleteCharactersInRange:range];
-            }
-    }
+    NSMutableString *encodedData = [data objectForKey:@"phto"];
+    NSString *album = [data objectForKey:@"album"];
     
     // Decode the base64 encoded data
     [Base64 initialize];
-    NSData * imageData = [Base64 decode:data];
+    NSData * imageData = [Base64 decode:encodedData];
     
     // create image
     UIImage *image = [[UIImage alloc]initWithData:imageData];
-        
+    
+    if(image == nil){
+        // add code for failure to decode picture data
+        return [NSDictionary dictionaryWithObjectsAndKeys:
+                @"photo not added", @"results",
+                @"FAILURE",@"outcome",
+                @"Decode failed", @"reason",
+                @"wrong size for decode; base64 string must be divisible by 4", @"details", nil];
+    }
+    
     // KEXIN'S CODE HERE
     
-    return UIImagePNGRepresentation(image);
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+            @"image received", @"results",
+            @"SUCCESS",@"outcome",
+            nil];
+
 }
 
 @end

@@ -10,7 +10,6 @@
 #import "LPHTTPResponse.h"
 #import "LPGenericAsyncRoute.h"
 
-@interface LPPhotoRoute : LPGenericAsyncRoute
+@interface LPPhotoRoute : NSObject<LPRoute>
 
-- (NSData*)addPhoto;
 @end

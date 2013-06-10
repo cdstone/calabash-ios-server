@@ -10,8 +10,11 @@
 #import "LPHTTPDataResponse.h"
 #import <QuartzCore/QuartzCore.h>
 #import "Base64.h"
+#import "AddPhotoToAlbum.h"
 
 @implementation LPPhotoRoute
+
+@synthesize library;
 
 -(BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path {
     return [method isEqualToString:@"GET"] || [method isEqualToString:@"POST"];
@@ -45,11 +48,20 @@
                 @"Decode failed", @"reason",
                 @"wrong size for decode; base64 string must be divisible by 4", @"details", nil];
     }
+    // TODO: Error handling for album section
     if(album != nil){
-        // create album
-        //TODO: FIX THE FRAMEWORK???
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        [library addAssetsGroupAlbumWithName:album
+        self.library = [[ALAssetsLibrary alloc] init];
+        // if have an image add it to that album
+        if(image != nil){
+            [self.library saveImage:image toAlbum:album withCompletionBlock:^(NSError *error) {
+                if (error!=nil) {
+                    NSLog(@"Big error: %@", [error description]);
+                }
+            }];
+        }
+        // otherwise, just create an album
+        else{
+            [library addAssetsGroupAlbumWithName:album
                                  resultBlock:^(ALAssetsGroup *group) {
                                      NSLog(@"added album:%@", album);
                                  }
@@ -57,10 +69,9 @@
                                 failureBlock:^(NSError *error) {
                                     NSLog(@"error adding album");
                                 }
-         ];
-        if(image != nil){
-         // TODO: add to specific album
+            ];
         }
+
     }
     else {
         // save to default photos

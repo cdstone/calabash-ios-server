@@ -25,12 +25,14 @@
 		26CED3911766324C00744BCD /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26CED3901766324C00744BCD /* AssetsLibrary.framework */; };
 		692D77A01657010000DE3E53 /* LPExitRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 692D779E1657010000DE3E53 /* LPExitRoute.h */; };
 		692D77A11657010000DE3E53 /* LPExitRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 692D779F1657010000DE3E53 /* LPExitRoute.m */; };
+		701993D61766824000EEA2A3 /* LPPhotoCountRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 701993D41766823F00EEA2A3 /* LPPhotoCountRoute.h */; };
+		701993D71766824000EEA2A3 /* LPPhotoCountRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 701993D51766823F00EEA2A3 /* LPPhotoCountRoute.m */; };
 		70964E081762A5B500D3B1F7 /* Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 70964E061762A5B500D3B1F7 /* Base64.h */; };
 		70964E091762A5B500D3B1F7 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 70964E071762A5B500D3B1F7 /* Base64.m */; };
 		70BFDA79176664240095791C /* AddPhotoToAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = 70BFDA77176664240095791C /* AddPhotoToAlbum.h */; };
 		70BFDA7A176664240095791C /* AddPhotoToAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 70BFDA78176664240095791C /* AddPhotoToAlbum.m */; };
-		70E97D3F17611EDD00A1059C /* LPPhotoRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 70E97D3D17611EDC00A1059C /* LPPhotoRoute.h */; };
-		70E97D4017611EDD00A1059C /* LPPhotoRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E97D3E17611EDD00A1059C /* LPPhotoRoute.m */; };
+		70E97D3F17611EDD00A1059C /* LPPhotoAssetsLibraryRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 70E97D3D17611EDC00A1059C /* LPPhotoAssetsLibraryRoute.h */; };
+		70E97D4017611EDD00A1059C /* LPPhotoAssetsLibraryRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E97D3E17611EDD00A1059C /* LPPhotoAssetsLibraryRoute.m */; };
 		B12179A8165D613100B6DA43 /* LPScreenshotRoute2.h in Headers */ = {isa = PBXBuildFile; fileRef = B12179A6165D613100B6DA43 /* LPScreenshotRoute2.h */; };
 		B12179A9165D613100B6DA43 /* LPScreenshotRoute2.m in Sources */ = {isa = PBXBuildFile; fileRef = B12179A7165D613100B6DA43 /* LPScreenshotRoute2.m */; };
 		B1296FC015DC1F4B005DDF5C /* LPReflectUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = B1296FBF15DC1F4B005DDF5C /* LPReflectUtils.h */; };
@@ -133,12 +135,14 @@
 		26CED3901766324C00744BCD /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		692D779E1657010000DE3E53 /* LPExitRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPExitRoute.h; sourceTree = "<group>"; };
 		692D779F1657010000DE3E53 /* LPExitRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPExitRoute.m; sourceTree = "<group>"; };
+		701993D41766823F00EEA2A3 /* LPPhotoCountRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPPhotoCountRoute.h; sourceTree = "<group>"; };
+		701993D51766823F00EEA2A3 /* LPPhotoCountRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPPhotoCountRoute.m; sourceTree = "<group>"; };
 		70964E061762A5B500D3B1F7 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		70964E071762A5B500D3B1F7 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
 		70BFDA77176664240095791C /* AddPhotoToAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPhotoToAlbum.h; sourceTree = "<group>"; };
 		70BFDA78176664240095791C /* AddPhotoToAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPhotoToAlbum.m; sourceTree = "<group>"; };
-		70E97D3D17611EDC00A1059C /* LPPhotoRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPPhotoRoute.h; sourceTree = "<group>"; };
-		70E97D3E17611EDD00A1059C /* LPPhotoRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPPhotoRoute.m; sourceTree = "<group>"; };
+		70E97D3D17611EDC00A1059C /* LPPhotoAssetsLibraryRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPPhotoAssetsLibraryRoute.h; sourceTree = "<group>"; };
+		70E97D3E17611EDD00A1059C /* LPPhotoAssetsLibraryRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPPhotoAssetsLibraryRoute.m; sourceTree = "<group>"; };
 		B111321514D5837900982BBC /* LPAsyncPlaybackRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPAsyncPlaybackRoute.h; sourceTree = "<group>"; };
 		B111321614D5837900982BBC /* LPAsyncPlaybackRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPAsyncPlaybackRoute.m; sourceTree = "<group>"; };
 		B116C98314E5215800663205 /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDData.h; path = calabash/Classes/CocoaHttpServer/Categories/DDData.h; sourceTree = SOURCE_ROOT; };
@@ -545,8 +549,10 @@
 				692D779F1657010000DE3E53 /* LPExitRoute.m */,
 				B153F55A15949F3D00867E12 /* LPVersionRoute.h */,
 				B153F55B15949F3D00867E12 /* LPVersionRoute.m */,
-				70E97D3D17611EDC00A1059C /* LPPhotoRoute.h */,
-				70E97D3E17611EDD00A1059C /* LPPhotoRoute.m */,
+				70E97D3D17611EDC00A1059C /* LPPhotoAssetsLibraryRoute.h */,
+				70E97D3E17611EDD00A1059C /* LPPhotoAssetsLibraryRoute.m */,
+				701993D41766823F00EEA2A3 /* LPPhotoCountRoute.h */,
+				701993D51766823F00EEA2A3 /* LPPhotoCountRoute.m */,
 			);
 			path = Routes;
 			sourceTree = "<group>";
@@ -672,9 +678,10 @@
 				B1EBF08A16EE63A000AE4D40 /* LPQueryLogRoute.h in Headers */,
 				B19440441725C70A00EE1B25 /* LPFlashOperation.h in Headers */,
 				F5AE0BC6174F58A5006E4050 /* LPScrollToRowWithMarkOperation.h in Headers */,
-				70E97D3F17611EDD00A1059C /* LPPhotoRoute.h in Headers */,
+				70E97D3F17611EDD00A1059C /* LPPhotoAssetsLibraryRoute.h in Headers */,
 				70964E081762A5B500D3B1F7 /* Base64.h in Headers */,
 				70BFDA79176664240095791C /* AddPhotoToAlbum.h in Headers */,
+				701993D61766824000EEA2A3 /* LPPhotoCountRoute.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -827,9 +834,10 @@
 				B1EBF08B16EE63A000AE4D40 /* LPQueryLogRoute.m in Sources */,
 				B19440451725C70A00EE1B25 /* LPFlashOperation.m in Sources */,
 				F5AE0BC7174F58A5006E4050 /* LPScrollToRowWithMarkOperation.m in Sources */,
-				70E97D4017611EDD00A1059C /* LPPhotoRoute.m in Sources */,
+				70E97D4017611EDD00A1059C /* LPPhotoAssetsLibraryRoute.m in Sources */,
 				70964E091762A5B500D3B1F7 /* Base64.m in Sources */,
 				70BFDA7A176664240095791C /* AddPhotoToAlbum.m in Sources */,
+				701993D71766824000EEA2A3 /* LPPhotoCountRoute.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

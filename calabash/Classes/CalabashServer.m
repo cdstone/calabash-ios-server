@@ -23,7 +23,8 @@
 #import "LPConditionRoute.h"
 #import "LPUIARoute.h"
 #import "LPKeyboardRoute.h"
-#import "LPPhotoRoute.h" // IPL
+#import "LPPhotoAssetsLibraryRoute.h" // IPL
+#import "LPPhotoCountRoute.h" // IPL
 #import <dlfcn.h>
 
 @interface CalabashServer()
@@ -101,9 +102,13 @@
         [cond release];
 
         // IPL
-        LPPhotoRoute* photo = [LPPhotoRoute new];
+        LPPhotoAssetsLibraryRoute* photo = [LPPhotoAssetsLibraryRoute new];
         [LPRouter addRoute:photo forPath:@"photo"];
         [photo release];
+        
+        LPPhotoCountRoute* count = [LPPhotoCountRoute new];
+        [LPRouter addRoute:count forPath:@"count"];
+        [count release];
         // IPL
         
         LPKeyboardRoute* keyboard = [LPKeyboardRoute new];

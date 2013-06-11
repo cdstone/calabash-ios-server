@@ -3,21 +3,19 @@
 //  calabash
 //
 //  Created by Karl Krukow on 29/01/12.
-//  Copyright (c) 2012 LessPainful. All rights reserved.
+//  Copyright (c) 2013 LessPainful. All rights reserved.
 //
 
-#import "LPPhotoRoute.h"
-#import "LPHTTPDataResponse.h"
-#import <QuartzCore/QuartzCore.h>
+#import "LPPhotoAssetsLibraryRoute.h"
 #import "Base64.h"
 #import "AddPhotoToAlbum.h"
 
-@implementation LPPhotoRoute
+@implementation LPPhotoAssetsLibraryRoute
 
 @synthesize library;
 
 -(BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path {
-    return [method isEqualToString:@"GET"] || [method isEqualToString:@"POST"];
+    return [method isEqualToString:@"POST"];
 }
 
 - (UIImage*) decodePhoto:(NSMutableString*)data{
@@ -48,36 +46,46 @@
                 @"Decode failed", @"reason",
                 @"wrong size for decode; base64 string must be divisible by 4", @"details", nil];
     }
-    // TODO: Error handling for album section
+
     if(album != nil){
         self.library = [[ALAssetsLibrary alloc] init];
+        __block BOOL flag = false;
+        __block NSString *errorMsg;
         // if have an image add it to that album
         if(image != nil){
             [self.library saveImage:image toAlbum:album withCompletionBlock:^(NSError *error) {
                 if (error!=nil) {
-                    NSLog(@"Big error: %@", [error description]);
+                    errorMsg = [error description];
+                    flag = true;
                 }
             }];
         }
         // otherwise, just create an album
         else{
             [library addAssetsGroupAlbumWithName:album
-                                 resultBlock:^(ALAssetsGroup *group) {
-                                     NSLog(@"added album:%@", album);
-                                 }
-         
+                                resultBlock:^(ALAssetsGroup *group) {
+                                }
                                 failureBlock:^(NSError *error) {
-                                    NSLog(@"error adding album");
+                                    errorMsg = [error description];
+                                    flag = true;
                                 }
             ];
         }
-
+        if (flag){
+            return [NSDictionary dictionaryWithObjectsAndKeys:
+                    @"album not added", @"results",
+                    @"FAILURE",@"outcome",
+                    @"Album addition failed", @"reason",
+                    errorMsg, @"details", nil];
+            
+        }
     }
     else {
-        // save to default photos
+        // save to default photos if no album provided
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     }
     
+    // return success!
     return [NSDictionary dictionaryWithObjectsAndKeys:
             @"photo added", @"results",
             @"SUCCESS",@"outcome",

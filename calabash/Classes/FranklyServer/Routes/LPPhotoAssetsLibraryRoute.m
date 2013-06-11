@@ -38,6 +38,7 @@
     NSMutableString *encodedData = [data objectForKey:@"phto"];
     NSString *album = [data objectForKey:@"album"];
     UIImage *image = [self decodePhoto:encodedData];
+    NSString *result = @"photo added";
     
     if(encodedData != nil && image == nil){
             return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -62,6 +63,7 @@
         }
         // otherwise, just create an album
         else{
+            result = @"album added";
             [library addAssetsGroupAlbumWithName:album
                                 resultBlock:^(ALAssetsGroup *group) {
                                 }
@@ -87,7 +89,7 @@
     
     // return success!
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            @"photo added", @"results",
+            result, @"results",
             @"SUCCESS",@"outcome",
             nil];
 }

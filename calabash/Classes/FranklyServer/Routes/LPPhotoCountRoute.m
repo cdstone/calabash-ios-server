@@ -10,6 +10,8 @@
 
 @implementation LPPhotoCountRoute
 
+@synthesize library;
+
 -(BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path {
     return [method isEqualToString:@"POST"];
 }

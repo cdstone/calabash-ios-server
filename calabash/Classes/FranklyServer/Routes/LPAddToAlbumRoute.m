@@ -60,82 +60,103 @@
 - (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     if(error != nil){
         NSLog(@"error with saving video");
-        NSLog(@"details %@", [error description]);
+        NSLog(@"details: %@", [error description]);
     }
 }
 
+// adds the photo to an album
+- (NSDictionary *) photoFunction:(NSData*)imageData toAlbum:(NSString*)album {
+    
+    UIImage *image = [[UIImage alloc]initWithData:imageData];
+    
+    // check if decoding went as expected; if not, return error
+    if(image == nil){
+        return [NSDictionary dictionaryWithObjectsAndKeys:
+                @"photo not added", @"results",
+                @"FAILURE",@"outcome",
+                @"Decode failed", @"reason",
+                @"wrong size for decode; base64 string must be divisible by 4", @"details", nil];
+    }
+    
+    // check if query requests specific album
+    if(album != nil){
+        self.library = [[ALAssetsLibrary alloc] init];
+        __block BOOL flag = false;
+        __block NSString *errorMsg;
+        // add it to the album
+            [self.library saveImage:image toAlbum:album withCompletionBlock:^(NSError *error) {
+                if (error!=nil) {
+                    errorMsg = [error description];
+                    flag = true;
+                }
+            }];
+        if (flag){
+            return [NSDictionary dictionaryWithObjectsAndKeys:
+                    @"album not added", @"results",
+                    @"FAILURE",@"outcome",
+                    @"Album addition failed", @"reason",
+                    errorMsg, @"details", nil];
+            
+        }
+    }
+    else {
+        // save to default photos if no album provided
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    }
+    return [NSDictionary dictionaryWithObjectsAndKeys:
+            @"photo added", @"results",
+            @"SUCCESS",@"outcome",
+            nil];
+}
+
+
 // "main" method for returning a response to calabash client
 - (NSDictionary *)JSONResponseForMethod:(NSString *)method URI:(NSString *)path data:(NSDictionary*)data {
-    // Receive the photo data
+    // Receive the media data
     NSMutableString *encodedData = [data objectForKey:@"media"];
     NSString *type = [data objectForKey:@"type"];
-    NSString *result = @"photo added";    
+    NSString* album = [data objectForKey:@"album"];
+    // decode it
     NSData *binaryData = [self decodeFile:encodedData];
+    
+    __block NSString* errorMsg;
+    __block BOOL flag = false;
     
     // check if the file is a video
     if (type != nil){
+        // return the movie operation
         return [self movieFunction:binaryData];
     }
-    // otherwise must be a photo (only two supported file types!)
-    else{
-        NSString *album = [data objectForKey:@"album"];
-
-        UIImage *image = [[UIImage alloc]initWithData:binaryData];
-        
-        // check if decoding went as expected; if not, return error
-        if(encodedData != nil && image == nil){
-            return [NSDictionary dictionaryWithObjectsAndKeys:
-                    @"photo not added", @"results",
-                    @"FAILURE",@"outcome",
-                    @"Decode failed", @"reason",
-                    @"wrong size for decode; base64 string must be divisible by 4", @"details", nil];
-        }
-        
-        // check if query requests specific album
-        if(album != nil){
-            self.library = [[ALAssetsLibrary alloc] init];
-            __block BOOL flag = false;
-            __block NSString *errorMsg;
-            // if have an image add it to that album
-            if(image != nil){
-                [self.library saveImage:image toAlbum:album withCompletionBlock:^(NSError *error) {
-                    if (error!=nil) {
-                        errorMsg = [error description];
-                        flag = true;
-                    }
-                }];
-            }
-            // otherwise, just create an album
-            else{
-                result = @"album added";
-                [library addAssetsGroupAlbumWithName:album
-                                         resultBlock:^(ALAssetsGroup *group) {
-                                         }
-                                        failureBlock:^(NSError *error) {
-                                            errorMsg = [error description];
-                                            flag = true;
-                                        }
-                 ];
-            }
-            if (flag){
-                return [NSDictionary dictionaryWithObjectsAndKeys:
-                        @"album not added", @"results",
-                        @"FAILURE",@"outcome",
-                        @"Album addition failed", @"reason",
-                        errorMsg, @"details", nil];
-                
-            }
-        }
-        else {
-            // save to default photos if no album provided
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-        }
+    // check if it is a photo
+    else if (encodedData != nil) {
+        // return the photo operation
+        return [self photoFunction:binaryData toAlbum:album];
     }
-    // return success!
-    return [NSDictionary dictionaryWithObjectsAndKeys:
-            result, @"results",
-            @"SUCCESS",@"outcome",
-            nil];
+    // otherwise, just create an album
+    else{
+        [library addAssetsGroupAlbumWithName:album
+                                 resultBlock:^(ALAssetsGroup *group) {
+                                 }
+                                failureBlock:^(NSError *error) {
+                                    errorMsg = [error description];
+                                    flag = true;
+                                }
+         ];
+        if(flag){
+            return [NSDictionary dictionaryWithObjectsAndKeys:
+                    @"album not added", @"results",
+                    @"FAILURE",@"outcome",
+                    @"Album addition failed", @"reason",
+                    errorMsg, @"details", nil];
+            
+        }
+        // return success!
+        return [NSDictionary dictionaryWithObjectsAndKeys:
+                @"album added", @"results",
+                @"SUCCESS",@"outcome",
+                nil];
+        
+    }
 }
 
 @end

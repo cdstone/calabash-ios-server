@@ -20,6 +20,8 @@
     self.library = [[ALAssetsLibrary alloc] init];
     NSAssert(library, @"Unable to open ALAssetsLibrary");
     NSString *album = [data objectForKey:@"album"];
+    NSString *exists = [data objectForKey:@"exists"];
+    NSLog(@"%@", exists);
     
     // set up blocks and flags for enumerating through the albums
     __block int count = -1;
@@ -66,10 +68,18 @@
         // busily
     }
     
+    if(exists != nil && albumWasFound){
+        NSLog(@"LOGGIT");
+        return [NSDictionary dictionaryWithObjectsAndKeys:
+                @"album exists", @"results",
+                @"SUCCESS",@"outcome",
+                nil];
+    }
+    
     // couldn't find album, report the error
     if(!albumWasFound){
         return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"count failed", @"results",
+                @"album not found", @"results",
                 @"FAILURE",@"outcome",
                 @"album not found", @"reason",
                 nil];

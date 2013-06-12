@@ -25,7 +25,6 @@
 		26CED3911766324C00744BCD /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26CED3901766324C00744BCD /* AssetsLibrary.framework */; };
 		692D77A01657010000DE3E53 /* LPExitRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 692D779E1657010000DE3E53 /* LPExitRoute.h */; };
 		692D77A11657010000DE3E53 /* LPExitRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 692D779F1657010000DE3E53 /* LPExitRoute.m */; };
-		700E66E61768CD2700580182 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 700E66E51768CD2700580182 /* MobileCoreServices.framework */; };
 		701993D61766824000EEA2A3 /* LPPhotoCountRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 701993D41766823F00EEA2A3 /* LPPhotoCountRoute.h */; };
 		701993D71766824000EEA2A3 /* LPPhotoCountRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 701993D51766823F00EEA2A3 /* LPPhotoCountRoute.m */; };
 		70964E081762A5B500D3B1F7 /* Base64.h in Headers */ = {isa = PBXBuildFile; fileRef = 70964E061762A5B500D3B1F7 /* Base64.h */; };
@@ -136,7 +135,6 @@
 		26CED3901766324C00744BCD /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		692D779E1657010000DE3E53 /* LPExitRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPExitRoute.h; sourceTree = "<group>"; };
 		692D779F1657010000DE3E53 /* LPExitRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPExitRoute.m; sourceTree = "<group>"; };
-		700E66E51768CD2700580182 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		701993D41766823F00EEA2A3 /* LPPhotoCountRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPPhotoCountRoute.h; sourceTree = "<group>"; };
 		701993D51766823F00EEA2A3 /* LPPhotoCountRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPPhotoCountRoute.m; sourceTree = "<group>"; };
 		70964E061762A5B500D3B1F7 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
@@ -302,7 +300,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				700E66E61768CD2700580182 /* MobileCoreServices.framework in Frameworks */,
 				26CED3911766324C00744BCD /* AssetsLibrary.framework in Frameworks */,
 				B17E757B15D434D00066550B /* CFNetwork.framework in Frameworks */,
 				B17E756E15D433A40066550B /* Foundation.framework in Frameworks */,
@@ -347,7 +344,6 @@
 		B121E79614B6D9FB0034C6A9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				700E66E51768CD2700580182 /* MobileCoreServices.framework */,
 				26CED3901766324C00744BCD /* AssetsLibrary.framework */,
 				B17E757A15D434D00066550B /* CFNetwork.framework */,
 				B121E79714B6D9FB0034C6A9 /* Foundation.framework */,

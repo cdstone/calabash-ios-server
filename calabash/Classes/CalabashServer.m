@@ -23,7 +23,7 @@
 #import "LPConditionRoute.h"
 #import "LPUIARoute.h"
 #import "LPKeyboardRoute.h"
-#import "LPPhotoAssetsLibraryRoute.h" // IPL
+#import "LPAddToAlbumRoute.h" // IPL
 #import "LPPhotoCountRoute.h" // IPL
 #import <dlfcn.h>
 
@@ -102,7 +102,7 @@
         [cond release];
 
         // IPL
-        LPPhotoAssetsLibraryRoute* photo = [LPPhotoAssetsLibraryRoute new];
+        LPAddToAlbumRoute* photo = [LPAddToAlbumRoute new];
         [LPRouter addRoute:photo forPath:@"photo"];
         [photo release];
         

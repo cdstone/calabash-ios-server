@@ -9,7 +9,7 @@
 #import "LPRoute.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface LPPhotoCountRoute : NSObject<LPRoute>
+@interface LPMediaCountRoute : NSObject<LPRoute>
 
 @property (strong, atomic) ALAssetsLibrary* library;
 

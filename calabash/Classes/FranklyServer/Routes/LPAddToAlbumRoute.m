@@ -5,6 +5,7 @@
 //  Created by Karl Krukow on 29/01/12.
 //  Copyright (c) 2013 LessPainful. All rights reserved.
 //
+// handles calls to add an album, add a photo, or add a video to the ios system
 
 #import "LPAddToAlbumRoute.h"
 #import "Base64.h"
@@ -27,23 +28,23 @@
 }
 
 
-// adds the movie to the saved photos album
-- (NSDictionary *) movieFunction:(NSData*)movieData {
+// adds the video to the saved photos album
+- (NSDictionary *) videoFunction:(NSData*)videoData {
 
-    // get path to save movie locally to ios system
+    // get path to save video locally to ios system
     NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString  *documentsDirectory = [paths objectAtIndex:0];
     NSString  *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory,@"filename.m4v"];
     
     // save data
-    [movieData writeToFile:filePath atomically:YES];
+    [videoData writeToFile:filePath atomically:YES];
     
     // check that the saved file is correct format (m4v)
     if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filePath)){
         // move data to the album
         UISaveVideoAtPathToSavedPhotosAlbum(filePath, self, @selector(video:didFinishSavingWithError:contextInfo:), filePath);
         return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"movie added", @"results",
+                @"video added", @"results",
                 @"SUCCESS",@"outcome",
                 nil];
     }
@@ -123,9 +124,9 @@
     __block BOOL flag = false;
     
     // check if the file is a video
-    if (type != nil){
-        // return the movie operation
-        return [self movieFunction:binaryData];
+    if ([type isEqualToString:@"video"]){
+        // return the video operation
+        return [self videoFunction:binaryData];
     }
     // check if it is a photo
     else if (encodedData != nil) {

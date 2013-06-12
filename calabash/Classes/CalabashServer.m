@@ -24,7 +24,7 @@
 #import "LPUIARoute.h"
 #import "LPKeyboardRoute.h"
 #import "LPAddToAlbumRoute.h" // IPL
-#import "LPPhotoCountRoute.h" // IPL
+#import "LPMediaCountRoute.h" // IPL
 #import <dlfcn.h>
 
 @interface CalabashServer()
@@ -106,7 +106,7 @@
         [LPRouter addRoute:photo forPath:@"photo"];
         [photo release];
         
-        LPPhotoCountRoute* count = [LPPhotoCountRoute new];
+        LPMediaCountRoute* count = [LPMediaCountRoute new];
         [LPRouter addRoute:count forPath:@"count"];
         [count release];
         // IPL

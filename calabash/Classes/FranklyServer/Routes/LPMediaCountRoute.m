@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 LessPainful. All rights reserved.
 //
 
-#import "LPPhotoCountRoute.h"
+#import "LPMediaCountRoute.h"
 
-@implementation LPPhotoCountRoute
+@implementation LPMediaCountRoute
 
 @synthesize library;
 
@@ -20,8 +20,7 @@
     self.library = [[ALAssetsLibrary alloc] init];
     NSAssert(library, @"Unable to open ALAssetsLibrary");
     NSString *album = [data objectForKey:@"album"];
-    NSString *exists = [data objectForKey:@"exists"];
-    NSLog(@"%@", exists);
+    __block NSString *filter = [data objectForKey:@"filter"];
     
     // set up blocks and flags for enumerating through the albums
     __block int count = -1;
@@ -30,12 +29,26 @@
     __block BOOL albumWasFound = false;
     __block BOOL done = false;
     
+    
+    
     // runs on each album to see if it's the right one
     void (^countBlock)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop) {
         if ([album compare: [group valueForProperty:ALAssetsGroupPropertyName]]==NSOrderedSame) {
             //target album is found!
             albumWasFound = true;
-            //so set count to number of photos in the album
+            
+            // set corresponding filter to the album
+            if([filter isEqualToString:@"photo"]){
+                [group setAssetsFilter:[ALAssetsFilter allPhotos]];
+            }
+            else if([filter isEqualToString:@"video"]){
+                [group setAssetsFilter:[ALAssetsFilter allVideos]];
+            }
+            else {
+                [group setAssetsFilter:[ALAssetsFilter allAssets]];
+            }
+            
+            //then set count to number of media objects in album according to the filter
             count = group.numberOfAssets;
             return;
         }
@@ -68,14 +81,6 @@
         // busily
     }
     
-    if(exists != nil && albumWasFound){
-        NSLog(@"LOGGIT");
-        return [NSDictionary dictionaryWithObjectsAndKeys:
-                @"album exists", @"results",
-                @"SUCCESS",@"outcome",
-                nil];
-    }
-    
     // couldn't find album, report the error
     if(!albumWasFound){
         return [NSDictionary dictionaryWithObjectsAndKeys:
@@ -99,7 +104,7 @@
     
     // return success!
     return [NSDictionary dictionaryWithObjectsAndKeys:
-            @"photos counted", @"results",
+            @"album exists", @"results",
             @"SUCCESS",@"outcome",
             countString, @"count",
             nil];

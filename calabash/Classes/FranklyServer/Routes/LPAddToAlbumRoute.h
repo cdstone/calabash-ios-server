@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "LPRoute.h"
+#import "LPGenericAsyncRoute.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface LPAddToAlbumRoute : NSObject<LPRoute>
+@interface LPAddToAlbumRoute : LPGenericAsyncRoute
 
 @property (strong, atomic) ALAssetsLibrary* library;
 

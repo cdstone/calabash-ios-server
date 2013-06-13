@@ -20,16 +20,14 @@
     self.library = [[ALAssetsLibrary alloc] init];
     NSAssert(library, @"Unable to open ALAssetsLibrary");
     NSString *album = [data objectForKey:@"album"];
-    __block NSString *filter = [data objectForKey:@"filter"];
-    
+    NSString *filter = [data objectForKey:@"filter"];
+        
     // set up blocks and flags for enumerating through the albums
     __block int count = -1;
     __block NSString *errorMsg;
     __block BOOL failure = false;
     __block BOOL albumWasFound = false;
     __block BOOL done = false;
-    
-    
     
     // runs on each album to see if it's the right one
     void (^countBlock)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop) {
@@ -65,13 +63,19 @@
     
     // the asset group of albums
     int arg1 = ALAssetsGroupAlbum;
+    int arg1All = ALAssetsGroupSavedPhotos;
     
     // set up backgroud method to search for album and count # of photos
     NSMethodSignature *sig = [library methodSignatureForSelector:@selector(enumerateGroupsWithTypes:usingBlock:failureBlock:)];
     NSInvocation *invoke = [NSInvocation invocationWithMethodSignature:sig];
     [invoke setTarget:library];
     [invoke setSelector:@selector(enumerateGroupsWithTypes:usingBlock:failureBlock:)];
-    [invoke setArgument:&arg1 atIndex:2];
+    if([album isEqualToString:@"Saved Photos"]){
+        [invoke setArgument:&arg1All atIndex:2];
+    }
+    else {
+        [invoke setArgument:&arg1 atIndex:2];
+    }
     [invoke setArgument:&countBlock atIndex:3];
     [invoke setArgument:&failBlock atIndex:4];
     [invoke performSelectorInBackground:@selector(invoke) withObject:nil];

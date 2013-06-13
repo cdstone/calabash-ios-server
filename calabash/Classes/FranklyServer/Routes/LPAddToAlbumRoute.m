@@ -29,8 +29,7 @@
 
 
 // adds the video to the saved photos album
-- (NSDictionary *) videoFunction:(NSData*)videoData {
-
+- (NSDictionary *) videoFunction:(NSData*)videoData {    
     // get path to save video locally to ios system
     NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString  *documentsDirectory = [paths objectAtIndex:0];
@@ -43,6 +42,7 @@
     if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filePath)){
         // move data to the album
         UISaveVideoAtPathToSavedPhotosAlbum(filePath, self, @selector(video:didFinishSavingWithError:contextInfo:), filePath);
+        // return
         return [NSDictionary dictionaryWithObjectsAndKeys:
                 @"video added", @"results",
                 @"SUCCESS",@"outcome",
@@ -63,6 +63,15 @@
         NSLog(@"error with saving video");
         NSLog(@"details: %@", [error description]);
     }
+    else{
+        // delete the now duplicated data
+        [[NSFileManager defaultManager] removeItemAtPath:videoPath error:&error];
+        // log if there's an error deleting the file (at worst, there will be one extra video file)
+        if(error != nil){
+            NSLog(@"File deletion failed");
+            NSLog(@"details: %@", [error description]);
+        }
+    }
 }
 
 // adds the photo to an album
@@ -80,17 +89,41 @@
     }
     
     // check if query requests specific album
-    if(album != nil){
+    if(![album isEqualToString:@"default"]){
         self.library = [[ALAssetsLibrary alloc] init];
         __block BOOL flag = false;
         __block NSString *errorMsg;
-        // add it to the album
-            [self.library saveImage:image toAlbum:album withCompletionBlock:^(NSError *error) {
-                if (error!=nil) {
-                    errorMsg = [error description];
-                    flag = true;
-                }
-            }];
+        __block BOOL complete = false;
+        // add it to the album using a background method
+        void (^completionBlock)(NSError*) = ^(NSError *error){
+            complete = true;
+            if (error!=nil) {
+                errorMsg = [error description];
+                flag = true;
+            }
+        };
+        
+    /* BACKGROUND METHOD
+    // NOT CURRENTLY WORKING - HANGS
+    // THIS IS NEEDED ON BOTH THE PHOTO AND VIDEO FUNCTIONS FOR PROPER ERROR REPORTING
+    // CURRENTLY FAILURES of saveImage:toAlbum:etc., UISaveVideoAtPathetc. WILL GO UNREPORTED
+         
+        NSMethodSignature *sig = [library methodSignatureForSelector:@selector(saveImage:toAlbum:withCompletionBlock:)];
+        NSInvocation *invoke = [NSInvocation invocationWithMethodSignature:sig];
+        [invoke setTarget:library];
+        [invoke setSelector:@selector(saveImage:toAlbum:withCompletionBlock:)];
+        [invoke setArgument:&image atIndex:2];
+        [invoke setArgument:&album atIndex:3];
+        [invoke setArgument:&completionBlock atIndex:4];
+        [invoke performSelectorInBackground:@selector(invoke) withObject:nil];
+        
+        while(!complete){
+            
+        }
+    */
+        
+        [library saveImage:image toAlbum:album withCompletionBlock:completionBlock];
+        // check for error
         if (flag){
             return [NSDictionary dictionaryWithObjectsAndKeys:
                     @"album not added", @"results",

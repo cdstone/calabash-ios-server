@@ -8,22 +8,23 @@
 // handles calls to add an album, add a photo, or add a video to the ios system
 
 #import "LPAddToAlbumRoute.h"
-#import "Base64.h"
+#import "LPResources.h"
 #import "AddPhotoToAlbum.h"
-#import "MobileCoreServices/UTCoreTypes.h"
 
 @implementation LPAddToAlbumRoute
 
 @synthesize library;
+
+BOOL complete = false;
+
 
 -(BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path {
     return [method isEqualToString:@"POST"];
 }
 
 // Decode the base64 encoded data
-- (NSData*) decodeFile:(NSMutableString*)data{
-    [Base64 initialize];
-    NSData * result = [Base64 decode:data];
+- (NSData*) decodeFile:(NSString*)data{
+    NSData * result = [LPResources decodeBase64WithString:data];
     return result;
 }
 
@@ -59,6 +60,7 @@
 }
 
 - (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    complete = true;
     if(error != nil){
         NSLog(@"error with saving video");
         NSLog(@"details: %@", [error description]);
@@ -93,7 +95,6 @@
         self.library = [[ALAssetsLibrary alloc] init];
         __block BOOL flag = false;
         __block NSString *errorMsg;
-        __block BOOL complete = false;
         // add it to the album using a background method
         void (^completionBlock)(NSError*) = ^(NSError *error){
             complete = true;
@@ -147,13 +148,13 @@
 // "main" method for returning a response to calabash client
 - (NSDictionary *)JSONResponseForMethod:(NSString *)method URI:(NSString *)path data:(NSDictionary*)data {
     // Receive the media data
-    NSMutableString *encodedData = [data objectForKey:@"media"];
+    NSString *encodedData = [data objectForKey:@"media"];
     NSString *type = [data objectForKey:@"type"];
-    NSString* album = [data objectForKey:@"album"];
+    NSString *album = [data objectForKey:@"album"];
     // decode it
     NSData *binaryData = [self decodeFile:encodedData];
     
-    __block NSString* errorMsg;
+    __block NSString *errorMsg;
     __block BOOL flag = false;
     
     // check if the file is a video
@@ -176,6 +177,7 @@
                                     flag = true;
                                 }
          ];
+        // check for error
         if(flag){
             return [NSDictionary dictionaryWithObjectsAndKeys:
                     @"album not added", @"results",

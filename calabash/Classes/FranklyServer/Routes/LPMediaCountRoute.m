@@ -19,9 +19,19 @@
 - (NSDictionary *)JSONResponseForMethod:(NSString *)method URI:(NSString *)path data:(NSDictionary*)data {
     self.library = [[ALAssetsLibrary alloc] init];
     NSAssert(library, @"Unable to open ALAssetsLibrary");
-    NSString *album = [data objectForKey:@"album"];
+    __block NSString *album = [data objectForKey:@"album"];
     NSString *filter = [data objectForKey:@"filter"];
-        
+    
+    if([album isEqualToString:@"Saved Photos"]){
+        [library enumerateGroupsWithTypes:ALAssetsGroupSavedPhotos
+                               usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+                                   album = [group valueForProperty:ALAssetsGroupPropertyName];
+                               }
+                             failureBlock:^(NSError *error) {
+                                 NSLog(@"Error: %@", [error description]);
+                             }];
+    }
+    
     // set up blocks and flags for enumerating through the albums
     __block int count = -1;
     __block NSString *errorMsg;

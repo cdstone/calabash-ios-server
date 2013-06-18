@@ -15,9 +15,6 @@
 
 @synthesize library;
 
-NSString *errorMsg;
-NSArray *result;
-
 -(BOOL)supportsMethod:(NSString *)method atPath:(NSString *)path {
     return [method isEqualToString:@"POST"];
 }
@@ -38,14 +35,14 @@ NSArray *result;
     // save data
     [videoData writeToFile:filePath atomically:YES];
     
-    // check that the saved file is correct format (m4v)
+    // check that the saved file is correct format
     if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filePath)){
         // copy data to the album
         UISaveVideoAtPathToSavedPhotosAlbum(filePath, self, @selector(video:didFinishSavingWithError:contextInfo:), filePath);
     }
     // return error - incorrect format
     else {
-        [self failWithMessageFormat:@"file at path not compatible with m4v format" message:nil];
+        [self failWithMessageFormat:@"file at path not compatible with movie format" message:nil];
     }
 }
 
@@ -53,60 +50,59 @@ NSArray *result;
 - (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
     // check for error
     if(error != nil){
-        [self failWithMessageFormat:@"video not added" message:errorMsg];
+        [self failWithMessageFormat:@"video not added" message:[error description]];
     }
     else{
-        result = [NSArray arrayWithObject:@"video added"];
-        [self succeedWithResult:result];
-        // delete the now duplicated data
-        [[NSFileManager defaultManager] removeItemAtPath:videoPath error:&error];
-        // log if there's an error deleting the file (at worst, there will be one extra video file)
-        if(error != nil){
-            NSLog(@"File deletion failed");
-            NSLog(@"details: %@", [error description]);
-        }
+        [self succeedWithResult:[NSArray arrayWithObject:@"video added"]];
+    }
+    // delete the temporary video data
+    [[NSFileManager defaultManager] removeItemAtPath:videoPath error:&error];
+    // log if there's an error deleting the file (at worst, there will be one extra video file)
+    if(error != nil){
+        NSLog(@"File deletion failed");
+        NSLog(@"details: %@", [error description]);
     }
 }
 
-// adds the photo to an album OR adds an album
-- (void) photoFunction:(NSData*)imageData toAlbum:(NSString*)album justAlbum:(BOOL)albumBOOL {
+// adds the photo to an album
+- (void) photoFunction:(NSData*)imageData toAlbum:(NSString*)album {
     
     UIImage *image = [[UIImage alloc]initWithData:imageData];
     
     // check if decoding went as expected; if not, return error
-    if(image == nil && !albumBOOL){
+    if(image == nil){
         [self failWithMessageFormat:@"Decode failed; file type incorrect" message:nil];
     }
     else{
         // check if query requests specific album
-        if(![album isEqualToString:@"default"]){
+        if(![album isEqualToString:@"Saved Photos"]){
             self.library = [[ALAssetsLibrary alloc] init];
-            __block NSString *errorMsg;
             // add it to the album using a background method
             void (^completionBlock)(NSError*) = ^(NSError *error){
                 if (error!=nil) {
-                    errorMsg = [error description];
-                    [self failWithMessageFormat:@"photo not added" message:errorMsg];
+                    [self failWithMessageFormat:@"photo not added" message:[error description]];
                 }
-                if(albumBOOL){
-                    result = [NSArray arrayWithObject:@"album added"];
-                }
-                else{
-                    result = [NSArray arrayWithObject:@"photo added"];
-                }
-                [self succeedWithResult:result];
+                [self succeedWithResult:[NSArray arrayWithObject:@"photo added"]];
             };
-            
             [library saveImage:image toAlbum:album withCompletionBlock:completionBlock];
-            // check for error
         }
         else {
             // save to Saved Photos if no album provided
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
-            result = [NSArray arrayWithObject:@"photo added"];
-            [self succeedWithResult:result];
+            [self succeedWithResult:[NSArray arrayWithObject:@"photo added"]];
         }
     }
+}
+
+// adds an album to the device
+- (void) albumFunction:(NSString*)album {
+    void (^completionBlock)(NSError*) = ^(NSError *error){
+        if (error!=nil) {
+            [self failWithMessageFormat:@"photo not added" message:[error description]];
+        }
+        [self succeedWithResult:[NSArray arrayWithObject:@"album added"]];
+    };
+    [library saveImage:nil toAlbum:album withCompletionBlock:completionBlock];
 }
 
 // start the operation
@@ -127,12 +123,12 @@ NSArray *result;
     // check if it is a photo
     else if (encodedData != nil) {
         // execute the photo operation
-        [self photoFunction:binaryData toAlbum:album justAlbum:false];
+        [self photoFunction:binaryData toAlbum:album];
     }
     
     // otherwise, just create an album
     else{
-        [self photoFunction:binaryData toAlbum:album justAlbum:true];
+        [self albumFunction:album];
     }    
 }
 

@@ -5,9 +5,31 @@
 //  Copyright (c) 2011 Marin Todorov. All rights reserved.
 //
 
-#import "AddPhotoToAlbum.h"
+#import "LPAddtoAlbum.h"
 
-@implementation ALAssetsLibrary(AddPhotoToAlbum)
+@implementation ALAssetsLibrary(LPAddtoAlbum)
+
+-(void)addAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock{
+    [self addAssetsGroupAlbumWithName:albumName resultBlock:^(ALAssetsGroup *group) {
+                      //call the completion block
+                      completionBlock(nil);
+                  } failureBlock: completionBlock];
+}
+
+-(void)saveVideo:(NSURL*)videoURL toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock
+{
+    [self writeVideoAtPathToSavedPhotosAlbum:videoURL completionBlock:^(NSURL* assetURL, NSError* error) {
+        //error handling
+        if (error!=nil) {
+            completionBlock(error);
+            return;
+        }
+        else{
+            //add the asset to the custom photo album
+            [self addAssetURL:assetURL toAlbum:albumName withCompletionBlock:completionBlock];
+        }
+    }];
+}
 
 -(void)saveImage:(UIImage*)image toAlbum:(NSString*)albumName withCompletionBlock:(SaveImageCompletion)completionBlock
 {

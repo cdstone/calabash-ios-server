@@ -27,8 +27,8 @@
 		692D77A11657010000DE3E53 /* LPExitRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 692D779F1657010000DE3E53 /* LPExitRoute.m */; };
 		701993D61766824000EEA2A3 /* LPMediaCountRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 701993D41766823F00EEA2A3 /* LPMediaCountRoute.h */; };
 		701993D71766824000EEA2A3 /* LPMediaCountRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 701993D51766823F00EEA2A3 /* LPMediaCountRoute.m */; };
-		70BFDA79176664240095791C /* AddPhotoToAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = 70BFDA77176664240095791C /* AddPhotoToAlbum.h */; };
-		70BFDA7A176664240095791C /* AddPhotoToAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 70BFDA78176664240095791C /* AddPhotoToAlbum.m */; };
+		70BFDA79176664240095791C /* LPAddtoAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = 70BFDA77176664240095791C /* LPAddtoAlbum.h */; };
+		70BFDA7A176664240095791C /* LPAddtoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 70BFDA78176664240095791C /* LPAddtoAlbum.m */; };
 		70E97D3F17611EDD00A1059C /* LPAddToAlbumRoute.h in Headers */ = {isa = PBXBuildFile; fileRef = 70E97D3D17611EDC00A1059C /* LPAddToAlbumRoute.h */; };
 		70E97D4017611EDD00A1059C /* LPAddToAlbumRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = 70E97D3E17611EDD00A1059C /* LPAddToAlbumRoute.m */; };
 		B12179A8165D613100B6DA43 /* LPScreenshotRoute2.h in Headers */ = {isa = PBXBuildFile; fileRef = B12179A6165D613100B6DA43 /* LPScreenshotRoute2.h */; };
@@ -135,8 +135,8 @@
 		692D779F1657010000DE3E53 /* LPExitRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPExitRoute.m; sourceTree = "<group>"; };
 		701993D41766823F00EEA2A3 /* LPMediaCountRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPMediaCountRoute.h; sourceTree = "<group>"; };
 		701993D51766823F00EEA2A3 /* LPMediaCountRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPMediaCountRoute.m; sourceTree = "<group>"; };
-		70BFDA77176664240095791C /* AddPhotoToAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPhotoToAlbum.h; sourceTree = "<group>"; };
-		70BFDA78176664240095791C /* AddPhotoToAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPhotoToAlbum.m; sourceTree = "<group>"; };
+		70BFDA77176664240095791C /* LPAddtoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPAddtoAlbum.h; sourceTree = "<group>"; };
+		70BFDA78176664240095791C /* LPAddtoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPAddtoAlbum.m; sourceTree = "<group>"; };
 		70E97D3D17611EDC00A1059C /* LPAddToAlbumRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPAddToAlbumRoute.h; sourceTree = "<group>"; };
 		70E97D3E17611EDD00A1059C /* LPAddToAlbumRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPAddToAlbumRoute.m; sourceTree = "<group>"; };
 		B111321514D5837900982BBC /* LPAsyncPlaybackRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPAsyncPlaybackRoute.h; sourceTree = "<group>"; };
@@ -619,8 +619,8 @@
 				B1296FC215DC1F5B005DDF5C /* LPReflectUtils.m */,
 				B184FE0E14B6DB2B002A744C /* LPTouchUtils.h */,
 				B184FE0F14B6DB2B002A744C /* LPTouchUtils.m */,
-				70BFDA77176664240095791C /* AddPhotoToAlbum.h */,
-				70BFDA78176664240095791C /* AddPhotoToAlbum.m */,
+				70BFDA77176664240095791C /* LPAddtoAlbum.h */,
+				70BFDA78176664240095791C /* LPAddtoAlbum.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -673,7 +673,7 @@
 				B19440441725C70A00EE1B25 /* LPFlashOperation.h in Headers */,
 				F5AE0BC6174F58A5006E4050 /* LPScrollToRowWithMarkOperation.h in Headers */,
 				70E97D3F17611EDD00A1059C /* LPAddToAlbumRoute.h in Headers */,
-				70BFDA79176664240095791C /* AddPhotoToAlbum.h in Headers */,
+				70BFDA79176664240095791C /* LPAddtoAlbum.h in Headers */,
 				701993D61766824000EEA2A3 /* LPMediaCountRoute.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -828,7 +828,7 @@
 				B19440451725C70A00EE1B25 /* LPFlashOperation.m in Sources */,
 				F5AE0BC7174F58A5006E4050 /* LPScrollToRowWithMarkOperation.m in Sources */,
 				70E97D4017611EDD00A1059C /* LPAddToAlbumRoute.m in Sources */,
-				70BFDA7A176664240095791C /* AddPhotoToAlbum.m in Sources */,
+				70BFDA7A176664240095791C /* LPAddtoAlbum.m in Sources */,
 				701993D71766824000EEA2A3 /* LPMediaCountRoute.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

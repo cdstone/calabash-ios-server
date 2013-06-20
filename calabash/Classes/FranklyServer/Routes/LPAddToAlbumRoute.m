@@ -1,5 +1,5 @@
 //
-//  LPPhotoRoute.m
+//  LPAddtoAlbumRoute.m
 //  calabash
 //
 //  Created by Karl Krukow on 29/01/12.
@@ -9,7 +9,7 @@
 
 #import "LPAddToAlbumRoute.h"
 #import "LPResources.h"
-#import "AddPhotoToAlbum.h"
+#import "LPAddtoAlbum.h"
 
 @implementation LPAddToAlbumRoute
 
@@ -26,7 +26,7 @@
 }
 
 // adds the video to the saved photos album
-- (void) videoFunction:(NSData*)videoData {
+- (void) videoFunction:(NSData*)videoData toAlbum:(NSString*)album {
     // get path to save video locally to ios system
     NSArray   *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString  *documentsDirectory = [paths objectAtIndex:0];
@@ -37,8 +37,23 @@
     
     // check that the saved file is correct format
     if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(filePath)){
-        // copy data to the album
-        UISaveVideoAtPathToSavedPhotosAlbum(filePath, self, @selector(video:didFinishSavingWithError:contextInfo:), filePath);
+        // save to Saved Photos Album if no album provided
+        if([album isEqualToString:@"Saved Photos"]){
+            UISaveVideoAtPathToSavedPhotosAlbum(filePath, self, @selector(video:didFinishSavingWithError:contextInfo:), filePath);
+        }
+        // save to custom album
+        else{
+            NSURL* url = [NSURL fileURLWithPath:filePath];
+            self.library = [[ALAssetsLibrary alloc] init];
+            // add it to the album using a background method
+            void (^completionBlock)(NSError*) = ^(NSError *error){
+                if (error!=nil) {
+                    [self failWithMessageFormat:@"video not added" message:[error description]];
+                }
+                [self succeedWithResult:[NSArray arrayWithObject:@"video added"]];
+            };
+            [library saveVideo:url toAlbum:album withCompletionBlock:completionBlock];
+        }
     }
     // return error - incorrect format
     else {
@@ -98,11 +113,12 @@
 - (void) albumFunction:(NSString*)album {
     void (^completionBlock)(NSError*) = ^(NSError *error){
         if (error!=nil) {
-            [self failWithMessageFormat:@"photo not added" message:[error description]];
+            [self failWithMessageFormat:@"album not added" message:[error description]];
         }
         [self succeedWithResult:[NSArray arrayWithObject:@"album added"]];
     };
-    [library saveImage:nil toAlbum:album withCompletionBlock:completionBlock];
+    self.library = [[ALAssetsLibrary alloc] init];
+    [library addAlbum:album withCompletionBlock:completionBlock];
 }
 
 // start the operation
@@ -117,7 +133,7 @@
     // check if the file is a video
     if ([type isEqualToString:@"video"]){
         // execute the video operation
-        [self videoFunction:binaryData];
+        [self videoFunction:binaryData toAlbum:album];
     }
     
     // check if it is a photo

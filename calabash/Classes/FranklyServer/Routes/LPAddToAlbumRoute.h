@@ -1,5 +1,5 @@
 //
-//  LPPhotoRoute.h
+//  LPAddToAlbumRoute.h
 //  calabash
 //
 //  Created by Karl Krukow on 29/01/12.

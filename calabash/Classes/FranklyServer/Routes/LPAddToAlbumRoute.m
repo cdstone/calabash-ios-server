@@ -47,10 +47,21 @@
             self.library = [[ALAssetsLibrary alloc] init];
             // add it to the album using a background method
             void (^completionBlock)(NSError*) = ^(NSError *error){
+                // check for error
                 if (error!=nil) {
                     [self failWithMessageFormat:@"video not added" message:[error description]];
                 }
-                [self succeedWithResult:[NSArray arrayWithObject:@"video added"]];
+                // otherwise return success
+                else{
+                    [self succeedWithResult:[NSArray arrayWithObject:@"video added"]];
+                }
+                // delete the temporary video data
+                [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
+                // log if there's an error deleting the file (at worst, there will be one extra video file)
+                if(error != nil){
+                    NSLog(@"File deletion failed");
+                    NSLog(@"details: %@", [error description]);
+                }
             };
             [library saveVideo:url toAlbum:album withCompletionBlock:completionBlock];
         }

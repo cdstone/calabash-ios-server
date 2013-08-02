@@ -31,7 +31,10 @@
     
     // runs on each album to see if it's the right one
     void (^countBlock)(ALAssetsGroup *, BOOL *) = ^(ALAssetsGroup *group, BOOL *stop) {
-        if ([album compare: [group valueForProperty:ALAssetsGroupPropertyName]]==NSOrderedSame) {
+        if (group == nil){
+            done = true;
+        }
+        else if ([album compare: [group valueForProperty:ALAssetsGroupPropertyName]]==NSOrderedSame || [album isEqualToString:@"Saved Photos"]) {
             //target album is found!
             albumWasFound = true;
             
@@ -49,9 +52,6 @@
             //then set count to number of media objects in album according to the filter
             count = group.numberOfAssets;
             return;
-        }
-        else if (group == nil){
-            done = true;
         }
     };
     
